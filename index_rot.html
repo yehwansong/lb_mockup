@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		html,body{
+			width: 100vw;
+			height: 100%;
+			overflow: hidden;
+		}
+		.whole_whole_wrapper{
+			width: 100vw;
+			height: 100vh;
+			position: absolute;
+		}
+		.whole_wrapper{
+			width: 100vw;
+			height: 100vh;
+			/*left: 100vw;*/
+			position: absolute;
+		}
+		.wave_wrapper,.cell_wrapper{
+		    width: 100vw;
+		    height: 100%;
+		    position: absolute;
+		    transform-style: preserve-3d;
+		    transform: perspective(15vh);
+		    /*left: -25vw;*/
+		}
+		.cell_top{
+			top:0;
+		}
+		.cell_bot{
+			bottom: 0
+		}
+		.cell_innerwrapper{
+		    width: 100vw;
+		    height: 100%;
+		    position: absolute;
+		    bottom:0;
+		    left: 0;
+		    transform: scale(0.4);
+		}
+		.wave_img{
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 350px;
+			height: 100%;
+			background-color: white;
+			background-size: auto 100%
+		}
+		.inverse .wave_1 .wave_img{background-position: 0px}
+		.inverse .wave_2 .wave_img{background-position: -300px}
+		.inverse .wave_3 .wave_img{background-position: -600px}
+		.inverse .wave_4 .wave_img{background-position: -900px}
+		.inverse .wave_5 .wave_img{background-position: -1200px}
+		.inverse .wave_6 .wave_img{background-position: -1500px}
+		.inverse .wave_7 .wave_img{background-position: -1800px}
+		.inverse .wave_8 .wave_img{background-position: -2100px}
+		.inverse .wave_9 .wave_img{background-position: -2400px}
+		.inverse .wave_10 .wave_img{background-position: -2700px}
+
+		.inverse.rotate .wave_wrapper>div:first-child{animation: MOVE-BG0 10s linear infinite;}
+		@keyframes MOVE-BG0 {	from {background-position: 0;}	to {background-position: -50vw;}		}
+		.inverse.rotate .wave_1 .wave_img {animation: MOVE-BG1 20s linear infinite;}
+		.inverse.rotate .wave_2 .wave_img {animation: MOVE-BG2 20s linear infinite;}
+		.inverse.rotate .wave_3 .wave_img {animation: MOVE-BG3 20s linear infinite;}
+		.inverse.rotate .wave_4 .wave_img {animation: MOVE-BG4 20s linear infinite;}
+		.inverse.rotate .wave_5 .wave_img {animation: MOVE-BG5 20s linear infinite;}
+		.inverse.rotate .wave_6 .wave_img {animation: MOVE-BG6 20s linear infinite;}
+		.inverse.rotate .wave_7 .wave_img {animation: MOVE-BG7 20s linear infinite;}
+		.inverse.rotate .wave_8 .wave_img {animation: MOVE-BG8 20s linear infinite;}
+		.inverse.rotate .wave_9 .wave_img {animation: MOVE-BG9 20s linear infinite;}
+		.inverse.rotate .wave_10 .wave_img{animation: MOVE-BG10 20s linear infinite;}
+		@keyframes MOVE-BG1 {	from {background-position: -0px;}		to {background-position: -3000px;}		}
+		@keyframes MOVE-BG2 {	from {background-position: -300px;}		to {background-position: -3300px;}		}
+		@keyframes MOVE-BG3 {	from {background-position: -600px;}		to {background-position: -3600px;}		}
+		@keyframes MOVE-BG4 {	from {background-position: -900px;}		to {background-position: -3900px;}		}
+		@keyframes MOVE-BG5 {	from {background-position: -1200px;}	to {background-position: -4200px;}		}
+		@keyframes MOVE-BG6 {	from {background-position: -1500px;}	to {background-position: -4500px;}		}
+		@keyframes MOVE-BG7 {	from {background-position: -1800px;}	to {background-position: -4800px;}		}
+		@keyframes MOVE-BG8 {	from {background-position: -2100px;}	to {background-position: -5100px;}		}
+		@keyframes MOVE-BG9 {	from {background-position: -2400px;}	to {background-position: -5400px;}		}
+		@keyframes MOVE-BG10{	from {background-position: -2700px;}	to {background-position: -5700px;}		}
+
+		.noinverse .wave_1 .wave_img{background-position: 0px}
+		.noinverse .wave_2 .wave_img{background-position: 300px}
+		.noinverse .wave_3 .wave_img{background-position: 600px}
+		.noinverse .wave_4 .wave_img{background-position: 900px}
+		.noinverse .wave_5 .wave_img{background-position: 1200px}
+		.noinverse .wave_6 .wave_img{background-position: 1500px}
+		.noinverse .wave_7 .wave_img{background-position: 1800px}
+		.noinverse .wave_8 .wave_img{background-position: 2100px}
+		.noinverse .wave_9 .wave_img{background-position: 2400px}
+		.noinverse .wave_10 .wave_img{background-position: 2700px}
+
+		.noinverse.rotate .wave_wrapper>div:last-child{animation: IN-MOVE-BG0 10s linear infinite;}
+		@keyframes IN-MOVE-BG0 {	from {background-position: 0;}	to {background-position: -50vw;}		}
+		.noinverse.rotate .wave_1 .wave_img {animation: IN-MOVE-BG1 20s linear infinite;}
+		.noinverse.rotate .wave_2 .wave_img {animation: IN-MOVE-BG2 20s linear infinite;}
+		.noinverse.rotate .wave_3 .wave_img {animation: IN-MOVE-BG3 20s linear infinite;}
+		.noinverse.rotate .wave_4 .wave_img {animation: IN-MOVE-BG4 20s linear infinite;}
+		.noinverse.rotate .wave_5 .wave_img {animation: IN-MOVE-BG5 20s linear infinite;}
+		.noinverse.rotate .wave_6 .wave_img {animation: IN-MOVE-BG6 20s linear infinite;}
+		.noinverse.rotate .wave_7 .wave_img {animation: IN-MOVE-BG7 20s linear infinite;}
+		.noinverse.rotate .wave_8 .wave_img {animation: IN-MOVE-BG8 20s linear infinite;}
+		.noinverse.rotate .wave_9 .wave_img {animation: IN-MOVE-BG9 20s linear infinite;}
+		.noinverse.rotate .wave_10 .wave_img{animation: IN-MOVE-BG10 20s linear infinite;}
+		@keyframes IN-MOVE-BG1 {	from {background-position: 0px;}	to {background-position: -3000px;}		}
+		@keyframes IN-MOVE-BG2 {	from {background-position: 300px;}	to {background-position: -2700px;}		}
+		@keyframes IN-MOVE-BG3 {	from {background-position: 600px;}	to {background-position: -2400px;}		}
+		@keyframes IN-MOVE-BG4 {	from {background-position: 900px;}	to {background-position: -2100px;}		}
+		@keyframes IN-MOVE-BG5 {	from {background-position: 1200px;}	to {background-position: -1800px;}		}
+		@keyframes IN-MOVE-BG6 {	from {background-position: 1500px;}	to {background-position: -1500px;}		}
+		@keyframes IN-MOVE-BG7 {	from {background-position: 1800px;}	to {background-position: -1200px;}		}
+		@keyframes IN-MOVE-BG8 {	from {background-position: 2100px;}	to {background-position: -900px;}		}
+		@keyframes IN-MOVE-BG9 {	from {background-position: 2400px;}	to {background-position: -600px;}		}
+		@keyframes IN-MOVE-BG10{	from {background-position: 2700px;}	to {background-position: -300px;}		}
+
+		body{
+			transform-style: preserve-3d;
+		}
+		.wave{
+		    position: absolute;
+		    border: 1px solid black;
+		    border-left: 0px solid black;
+		    /* border-left: 0px; */
+		    /* background-color: #ffffff00; */
+		    width: 50%;
+		    height: 100%;
+		    /*top: 25%;*/
+		}
+		.wave{
+			transform-origin:left;
+			background: linear-gradient(to left, black 256px ,rgba(255, 255, 255, 0) 200px);
+
+		}
+		.wave_side{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background-color: blue
+		}
+		.wave_side_1{
+		}
+		.wave_side_2{
+		}
+		.wave_under{
+			transform-origin: left bottom;
+			display: none;
+		}
+		.cell{
+		    position: absolute;
+		    width: 20vw;
+		    height: 40vh;
+		    border: 1px solid black;
+			background-color: #ffffffe0;
+		    z-index: 10000;
+			transform-origin:left;
+			background-image: url(img/a.png);
+			background-size: 100% 100%
+		}
+		.content{
+		    position: absolute;
+		    width: 100vw;
+		    height: 50vh;
+		    border: 1px solid black;
+			background-image: url(img/dummy_3.png);
+			background-size: auto 100%;
+			background-position: center;
+			
+		    /*left: 0;*/
+		    bottom: 0
+		}
+		.inverse .content{
+			left: 0;
+		}
+		.noinverse .content{
+			right: 0
+		}
+		.whole_wrapper_2{
+			transform-origin: left;
+			transform: scaleX(-1);
+		}
+		.side{
+			background-image:none!important;
+		}
+		.side>.wave_img{
+			background-image:none!important;
+			opacity: 0
+		}
+		.noinverse .wave_wrapper .side{
+			width: 1000vw !important;
+		}
+		.inverse .wave_wrapper .side{
+			width: 1000vw !important;
+		}
+
+		.inverse .wave_img{
+			background-image: url(img/dummy_2.png);
+			background-color: transparent;
+		}
+		.noinverse .wave_wrapper>div:last-child{
+			background-image: url(img/dummy_2.png) !important;
+			background-size: 50vw 100vh
+		}
+		.noinverse .wave_img{
+			background-image: url(img/dummy.png);
+			background-color: transparent;
+		}
+		.inverse .wave_wrapper>div:first-child{
+			background-image: url(img/dummy.png) !important;
+			background-size: 50vw 100vh;
+		}
+ 
+	</style>
+</head>
+<body>
+	<script src="jquery.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+						$('body').addClass('rotate')
+		var w = window.innerWidth
+		var h = window.innerHeight
+		var rotate_on = true
+		var open_on = true
+		var counter = 3000
+		var img_counter = 0
+		var intensity = 200-(counter/10)%180*200/180
+		console.log(intensity)
+	
+		var random_array = []
+		var center_xz = [w/2,w]
+		var center_angle = []
+		var center_array = [172.6, 170.4, 166.8, 158.8, 131.2, 50.5, 21.5, 13.3, 9.6, 7.7]
+		var inverse = false
+		var width_unit = $('.wave').parent().outerWidth()/($('.wave').length-1)
+		init()
+		function wave_structure(intensity,inverse){
+			if(inverse){
+				$('body').addClass('inverse')
+				$('body').removeClass('noinverse')
+			}else{
+				$('body').removeClass('inverse')
+				$('body').addClass('noinverse')
+			}
+
+			animation_array = []
+			c_animation_array = []
+			// 각도넘어간후에는 둘다inverse
+			// 각도대치
+			$('.wave').each(function(index){
+				var angle = get_angle(index,intensity,inverse)
+				if(angle>center_angle[index] && !inverse
+					||angle<center_angle[index] && inverse
+					){angle = center_angle[index]}
+				var x = get_x(index)
+				$('.wave_'+(index+1)).css({'transform':'rotateY('+ angle + 'deg) rotateZ(0deg)'})
+				if((!inverse && angle>(center_array[index]))||(inverse && angle<(center_array[index]))){
+					$('.wave_'+(index+1)).addClass('side')
+				}else{
+					$('.wave_'+(index+1)).removeClass('side')
+				}
+					var prev_x = get_x(index-1)
+					var prev_angle = get_angle((index-1),intensity,inverse)
+					var result = get_intersection(
+						x, 
+						0, 
+						get_another_dot(x,angle)[0], 
+						get_another_dot(x,angle)[1], 
+						prev_x, 
+						0, 
+						get_another_dot(prev_x,prev_angle)[0], 
+						get_another_dot(prev_x,prev_angle)[1]
+					)
+					animation_array.push([
+						index+1,	
+						result.x,		
+						-1*result.z,	
+						(index)*width_unit,	
+						0,	
+						random_array[index]
+					])
+					$('.wave_'+(index+1)).css({'width':get_dis(get_dis_init(index,inverse),	0, result.x,	result.z)+'px'})
+
+
+
+				if(inverse&&index==0){
+					console.log(angle)
+					var c_result = get_intersection(
+								0, 
+								0, 
+								get_another_dot(x,angle)[0], 
+								get_another_dot(x,angle)[1], 
+								0, 
+								center_xz[1]/2, 
+								get_another_dot(0,0)[0], 
+								get_another_dot(0,0)[1]
+							)
+					c_animation_array.push([
+						0,	
+						c_result.x,		
+						-1*c_result.z,	
+						(index)*width_unit,	
+						0,	
+						0
+					])	
+				}
+				if(!inverse&&index==$('.wave').length-1){
+					console.log(angle)
+					var c_result = get_intersection(
+								w, 
+								0, 
+								get_another_dot(x,angle)[0], 
+								get_another_dot(x,angle)[1],  
+								0, 
+								center_xz[1]/2, 
+								get_another_dot(0,0)[0], 
+								get_another_dot(0,0)[1]
+							)
+					c_animation_array.push([
+						0,	
+						c_result.x,		
+						-1*c_result.z,	
+						(index)*width_unit,	
+						0,	
+						0
+					])	
+				}		
+
+
+
+			})
+		}
+		function animation(){
+			counter++
+			var counter_10 = counter/10
+			if(Math.floor(counter_10)==counter_10){
+				if(counter_10%360 >= 180){
+					if(!inverse){
+						rotate_on = false
+						open_on = false
+						setTimeout(function(){
+							inverse = true
+							$('body').removeClass('rotate')
+							rotate_on = true
+							open_on = true
+							animation()
+						},7000)
+						return false
+					}
+					intensity = 200-counter_10%180*200/180
+					$('body').addClass('inverse')
+					$('body').removeClass('noinverse')
+					wave_structure(intensity,inverse)
+				}else{
+						inverse  = false
+					intensity = counter_10%180*200/180
+					$('body').removeClass('inverse')
+					$('body').addClass('noinverse')
+					wave_structure(intensity,inverse)
+				}
+			}
+				// console.log(c_animation_array)
+
+				var val = (counter)%1800
+				// console.log(Math.floor(val/1800*100)+','+Math.floor(intensity/200*100))
+				// console.log(intensity/200)
+			if(inverse){
+				// var c_val1 = map_range(intensity,	200,30,		c_animation_array[0][1],	c_animation_array[0][3])
+				// var c_val2 = map_range(intensity,	200,30,		c_animation_array[0][2],	c_animation_array[0][4])
+				var c_val1 = map_range(intensity,	190,10,		0,	0)
+				var c_val2 = map_range(intensity,	190,10,		-1*center_xz[1]/2,	0)
+				var c_val3 = map_range(intensity,	190,10,		1 	,1)
+				if((intensity>10) && (intensity<190)){
+					console.log(c_val1)
+					// console.log(c_val2) 
+					// console.log(c_val3) 
+					$('.content').show()
+					$('.content').css({'transform':'translateX('+c_val1+'px) \
+													translateZ('+c_val2+'px)\
+													scaleX('+c_val3+')'})
+				}else{
+					$('.content').hide()
+				}
+			}else{
+				// var c_val1 = map_range(intensity, 30,200,			c_animation_array[0][1],c_animation_array[0][3])
+				// var c_val2 = map_range(intensity, 30,200,			c_animation_array[0][2],c_animation_array[0][4])
+				var c_val1 = map_range(intensity,	10,190,		0,	0)
+				var c_val2 = map_range(intensity,	10,190,		-1*center_xz[1]/2,	0)
+				var c_val3 = map_range(intensity,	10,190,		1 	,1)
+				if((intensity>10) && (intensity<190)){
+					
+					$('.content').show()
+					$('.content').css({'transform':'translateX('+c_val1+'px) \
+													translateZ('+c_val2+'px)\
+													scaleX('+c_val3+')'})
+				}else{
+					$('.content').hide()
+				}
+			}
+
+
+
+
+			// for (var i = animation_array.length - 1; i >= 0; i--) {
+			// 	$('.cell_'+animation_array[i][0]).show()
+
+			// 	var val = (img_counter+animation_array[i][5])%1800
+			// 					var val1 = 	  map_range(val,	600,	1200,	animation_array[i][1],	animation_array[i][3])
+			// 					var val2 = 	  map_range(val,	600,	1200,	animation_array[i][2],	animation_array[i][4])
+			// 					var val3 = -1*map_range(val,	600,	1200,	0 	,1)
+			// 	if((val>600) && (val<1200)){
+			// 		$('.cell_'+animation_array[i][0]).show()
+			// 		$('.cell_'+animation_array[i][0]).css({'transform':
+			// 												'translateX('+val1+'px) \
+			// 												translateZ('+val2+'px)\
+			// 												scaleX('+val3+')'})
+			// 	}else{
+			// 		$('.cell_'+animation_array[i][0]).hide()
+			// 	}
+			// 	if(((img_counter-animation_array[i][5])%1800)<0){$('.cell_'+animation_array[i][0]).hide()}
+			// 	if(val2>animation_array[i][4]){
+			// 		val2 = animation_array[i][4]
+			// 	}
+			// }
+
+			setTimeout(function(){
+				if(open_on){
+					// animation()
+				}
+			},1)
+		}
+		function img_commingout(){
+			// $('body').addClass('rotate')
+			// console.log(img_counter)
+			img_counter = img_counter+3
+			for (var i = animation_array.length - 1; i >= 0; i--) {
+				var val = (img_counter+animation_array[i][5])%1800
+								var val1 = 	  map_range(val,	0,	1200,	animation_array[i][1],	animation_array[i][3])
+								var val2 = 	  map_range(val,	0,	1200,	animation_array[i][2],	animation_array[i][4])
+								var val3 = -1*map_range(val,	0,	1200,	0 	,1)
+				if((val>0) && (val<1200)){
+				$('.cell_'+animation_array[i][0]).show()
+					$('.cell_'+animation_array[i][0]).show()
+					$('.cell_'+animation_array[i][0]).css({'transform':
+															'translateX('+val1+'px) \
+															translateZ('+val2+'px)\
+															scaleX('+val3+')'})
+				}else{
+					$('.cell_'+animation_array[i][0]).hide()
+				}
+				if(((img_counter-animation_array[i][5])%1800)<0){	$('.cell_'+animation_array[i][0]).hide()	}
+				if(val2>animation_array[i][4]){		val2 = animation_array[i][4]	}
+			}
+			setTimeout(function(){
+				// if(rotate_on){
+					img_commingout()
+				// }
+			},1)
+		}
+		function init(){
+			for (var i = $('.wave').length - 1; i >= 0; i--) {
+				random_array.push(Math.floor(Math.random()*300))
+			}
+			$('.wave').each(function(index){
+				var x = get_x(index)
+				$(this).css({'left':x+'px'})
+				center_angle.push(get_angle_dots(center_xz[0],center_xz[1],x,0)+180)
+			})
+			$('.cell').each(function(index){
+				$(this).css({'width':width_unit+'px'})
+			})
+			// $('.content').css({'width':width_unit*5+'px'})
+			// console.log(intensity)
+			wave_structure(intensity,inverse)
+			animation()
+			img_commingout()
+
+		}
+
+
+
+
+
+		function get_dis_init(index,inverse){
+			if(!inverse){
+				return (index-1)*width_unit
+			}else{
+				return (index)*width_unit
+			}
+		}
+		function get_x(index){
+			return width_unit*index
+		}
+		function get_angle(index,intensity,inverse){
+			if(!inverse){
+				x = (100/$('.wave').length*(index+1))/100
+				return x*x*intensity
+			}else{
+				x = (100/$('.wave').length*($('.wave').length-index))/100
+				return 180-x*x*intensity
+			}
+		}
+		function get_dis(x1,y1,x2,y2){
+			var a = x1 - x2;
+			var b = y1 - y2;
+			return Math.sqrt( a*a + b*b );
+		}
+		function get_angle_dots(x1,y1,x2,y2){
+			return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+		}
+		function map_range(value, low1, high1, low2, high2) {
+		    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+		}
+		function get_another_dot(x,angle){
+				return [x+Math.cos(degtorad(angle))*100,Math.sin(degtorad(angle))*100]
+		}
+		function degtorad(degrees){
+			return degrees * Math.PI / 180;
+		}
+		function get_intersection(p1x, p1y, p2x, p2y, p3x, p3y, p4x, p4y){
+		  	var d1 = (p1x - p2x) * (p3y - p4y); // (x1 - x2) * (y3 - y4)
+		  	var d2 = (p1y - p2y) * (p3x - p4x); // (y1 - y2) * (x3 - x4)
+		  	var d  = (d1) - (d2);
+		  	// upper part of intersection point formula
+		  	var u1 = (p1x * p2y - p1y * p2x); // (x1 * y2 - y1 * x2)
+		  	var u4 = (p3x * p4y - p3y * p4x); // (x3 * y4 - y3 * x4)
+		      
+		  	var u2x = p3x - p4x;
+		  	var u3x = p1x - p2x;
+		  	var u2y = p3y - p4y;
+		  	var u3y = p1y - p2y;
+		  
+		  	// intersection point formula
+		  	
+		  	var px = (u1 * u2x - u3x * u4) / d;
+		  	var py = (u1 * u2y - u3y * u4) / d;
+		  	
+		  	var p = { x: px, z: py };
+		  
+		  	return p;
+		}
+	})
+	</script>
+	<div class="button"></div>
+	<div class="whole_whole_wrapper">
+	<div class="whole_wrapper whole_wrapper_1">
+		<div class="cell_wrapper">
+			<div class="content "></div>
+			<!-- <div class="cell cell_top cell_1 "></div> -->
+			<div class="cell cell_top cell_2 "></div>
+			<!-- <div class="cell cell_top cell_3 "></div> -->
+			<!-- <div class="cell cell_top cell_4 "></div> -->
+			<div class="cell cell_top cell_5 "></div>
+			<div class="cell cell_top cell_6 "></div>
+			<div class="cell cell_top cell_7 "></div>
+			<!-- <div class="cell cell_top cell_8 "></div> -->
+			<!-- <div class="cell cell_top cell_9 "></div> -->
+
+			<div class="cell cell_bot cell_1 "></div>
+			<!-- <div class="cell cell_bot cell_2 "></div> -->
+			<div class="cell cell_bot cell_3 "></div>
+			<div class="cell cell_bot cell_4 "></div>
+			<!-- <div class="cell cell_bot cell_5 "></div> -->
+			<!-- <div class="cell cell_bot cell_6 "></div> -->
+			<!-- <div class="cell cell_bot cell_7 "></div> -->
+			<div class="cell cell_bot cell_8 "></div>
+			<div class="cell cell_bot cell_9 "></div>
+		</div>
+		<div class="wave_wrapper">
+			<div class="wave wave_1 "><div class="wave_img"></div></div>
+			<div class="wave wave_2 "><div class="wave_img"></div></div>
+			<div class="wave wave_3 "><div class="wave_img"></div></div>
+			<div class="wave wave_4 "><div class="wave_img"></div></div>
+			<div class="wave wave_5 "><div class="wave_img"></div></div>
+			<div class="wave wave_6 "><div class="wave_img"></div></div>
+			<div class="wave wave_7 "><div class="wave_img"></div></div>
+			<div class="wave wave_8 "><div class="wave_img"></div></div>
+			<div class="wave wave_9 "><div class="wave_img"></div></div>
+			<div class="wave wave_10"><div class="wave_img"></div></div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>

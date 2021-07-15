@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		html,body{
+			width: 100vw;
+			height: 100%;
+		}
+		.whole_whole_wrapper{
+			width: 100vw;
+			height: 100vh;
+			position: absolute;
+		}
+		.whole_wrapper{
+			width: 100vw;
+			height: 100vh;
+			/*left: 100vw;*/
+			position: absolute;
+		}
+		.wave_wrapper,.cell_wrapper{
+		    width: 100vw;
+		    height: 100%;
+		    position: absolute;
+		    transform-style: preserve-3d;
+		    transform: perspective(15vh);
+		    /*left: -25vw;*/
+		}
+		.cell_wrapper{
+			/*display: none;*/
+		}
+		.cell_innerwrapper{
+		    width: 100vw;
+		    height: 100%;
+		    position: absolute;
+		    top:0;
+		    left: 0;
+		    transform: scale(0.4);
+		}
+		body{
+			transform-style: preserve-3d;
+		}
+		.wave,.content{
+		    position: absolute;
+		    border: 1px solid black;
+		    border-left: 0px solid black;
+		    /* border-left: 0px; */
+		    /* background-color: #ffffff00; */
+		    width: 50%;
+		    height: 100%;
+		    /*top: 25%;*/
+		}
+		.wave{
+			transform-origin:left
+		}
+		.wave_under{
+			transform-origin: left bottom;
+			display: none;
+		}
+		.cell{
+		    position: absolute;
+		    width: 20vw;
+		    height: 30vh;
+		    top: 0vh;
+		    border: 1px solid black;
+			background-color: #ffffffe0;
+		    z-index: 10000;
+		}
+		.whole_wrapper_2{
+			transform-origin: left;
+			transform: scaleX(-1);
+		}
+		/*.wave_wrapper>div:first-child{
+			width: 0vw !important
+		}
+		.wave_wrapper>div:last-child{
+			width: 500vw !important
+		}
+		.inverse .wave_wrapper>div:first-child{
+			width: 0vw !important
+		}
+		.inverse .wave_wrapper>div:last-child{
+			width: 500vw !important
+		}*/
+ 
+	</style>
+</head>
+<body>
+	<script src="jquery.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var w = window.innerWidth
+		var h = window.innerHeight
+		var counter = 0
+		var random_array = []
+		for (var i = $('.wave').length - 3; i >= 0; i--) {
+			random_array.push(Math.floor(Math.random()*1000))
+		}
+		var inverse = true
+		var intensity = 30
+		var width_unit = $('.wave').parent().outerWidth()/($('.wave').length-1)
+		wave_structure(30)
+		function wave_structure(intensity,inverse){
+			animation_array = []
+			$('.wave').each(function(index){
+				var angle = get_angle(index+1,intensity,inverse)
+				var x = get_x(index+1)
+				$('.wave_'+(index+1)).css({'transform':'rotateY('+ angle + 'deg) rotateZ(0deg)'})
+					var prev_x = get_x(index)
+					var prev_angle = get_angle((index),intensity,inverse)
+					var result = get_intersection(
+						x, 
+						0, 
+						get_another_dot(x,angle)[0], 
+						get_another_dot(x,angle)[1], 
+						prev_x, 
+						0, 
+						get_another_dot(prev_x,prev_angle)[0], 
+						get_another_dot(prev_x,prev_angle)[1]
+					)
+					animation_array.push([
+						index+1,	
+						result.x,		
+						-1*result.z,	
+						(index)*width_unit,	
+						0,	
+						random_array[index]
+					])
+					$('.wave_'+(index+1)).css({'width':
+						get_dis(
+							get_dis_init(index+1,inverse),	
+							0, 
+							result.x,	
+							result.z
+						)+'px'})
+				
+			})
+		}
+		$('.wave').each(function(index){
+			var x = get_x(index)
+			$(this).css({'left':x+'px'})
+		})
+		$('.cell').each(function(index){
+			$(this).css({'width':width_unit+'px'})
+		})
+		function get_dis_init(index,inverse){
+			if(!inverse){
+				return (index-1)*width_unit
+			}else{
+				return (index)*width_unit
+			}
+		}
+		function get_x(index){
+			return width_unit*index
+		}
+		function get_angle(index,intensity,inverse){
+			if(!inverse){
+				x = (100/$('.wave').length*(index+1))/100
+				return x*x*intensity
+			}else{
+				x = (100/$('.wave').length*($('.wave').length-index))/100
+				return 180-x*x*intensity
+			}
+		}
+		function get_dis(x1,y1,x2,y2){
+			var a = x1 - x2;
+			var b = y1 - y2;
+			return Math.sqrt( a*a + b*b );
+		}
+		animation()
+		function animation(){
+			counter++
+			var counter_10 = counter/10
+			// if(Math.floor(counter_10)==counter_10){
+			// 	var inverse  = false
+			// 	if(counter_10%360 > 180){
+			// 		inverse = true
+			// 		wave_structure(180-counter_10%180,inverse)
+			// 	}else{
+			// 		inverse  = false
+			// 		wave_structure(counter_10%180,inverse)
+			// 	}
+			// }
+			
+			for (var i = animation_array.length - 1; i >= 0; i--) {
+					$('.cell_'+animation_array[i][0]).show()
+				var val1 = map_range((counter+animation_array[i][5])%1000,	0,	500,	animation_array[i][1],	animation_array[i][3])
+				var val2 = map_range((counter+animation_array[i][5])%1000,	0,	500,	animation_array[i][2],	animation_array[i][4])
+				var val3 = map_range((counter+animation_array[i][5])%1000,	0,	500,	0 	,width_unit)
+				if(val1>animation_array[i][3]){val1 = animation_array[i][3]}
+				if(val2>animation_array[i][4]){
+					val2 = animation_array[i][4]
+					$('.cell_'+animation_array[i][0]).hide()
+				}
+				$('.cell_'+animation_array[i][0]).css({'transform':
+					'translateX('+map_range((counter+animation_array[i][5])%1000,	0,	500,	animation_array[i][1],	animation_array[i][3])+'px) \
+					translateZ('+val2+'px)'})
+				// $('.cell_'+animation_array[i][0]).css({'width':val3+'px'})
+			
+			}
+			setTimeout(function(){
+				// animation()
+			},10)
+		}
+		function map_range(value, low1, high1, low2, high2) {
+		    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+		}
+		function get_another_dot(x,angle){
+				return [x+Math.cos(degtorad(angle))*100,Math.sin(degtorad(angle))*100]
+		}
+		function degtorad(degrees){
+			return degrees * Math.PI / 180;
+		}
+		function get_intersection(p1x, p1y, p2x, p2y, p3x, p3y, p4x, p4y){
+		  	var d1 = (p1x - p2x) * (p3y - p4y); // (x1 - x2) * (y3 - y4)
+		  	var d2 = (p1y - p2y) * (p3x - p4x); // (y1 - y2) * (x3 - x4)
+		  	var d  = (d1) - (d2);
+		  	// upper part of intersection point formula
+		  	var u1 = (p1x * p2y - p1y * p2x); // (x1 * y2 - y1 * x2)
+		  	var u4 = (p3x * p4y - p3y * p4x); // (x3 * y4 - y3 * x4)
+		      
+		  	var u2x = p3x - p4x;
+		  	var u3x = p1x - p2x;
+		  	var u2y = p3y - p4y;
+		  	var u3y = p1y - p2y;
+		  
+		  	// intersection point formula
+		  	
+		  	var px = (u1 * u2x - u3x * u4) / d;
+		  	var py = (u1 * u2y - u3y * u4) / d;
+		  	
+		  	var p = { x: px, z: py };
+		  
+		  	return p;
+		}
+	})
+	</script>
+	<div class="whole_whole_wrapper">
+	<div class="whole_wrapper whole_wrapper_1">
+		<div class="cell_wrapper">
+			<div class="cell cell_1 "></div>
+			<div class="cell cell_2 "></div>
+			<div class="cell cell_3 "></div>
+			<div class="cell cell_4 "></div>
+			<div class="cell cell_5 "></div>
+			<div class="cell cell_6 "></div>
+			<div class="cell cell_7 "></div>
+			<div class="cell cell_8 "></div>
+			<div class="cell cell_9 "></div>
+		</div>
+		<div class="wave_wrapper">
+			<div class="wave wave_1 "></div>
+			<div class="wave wave_2 "></div>
+			<div class="wave wave_3 "></div>
+			<div class="wave wave_4 "></div>
+			<div class="wave wave_5 "></div>
+			<div class="wave wave_6 "></div>
+			<div class="wave wave_7 "></div>
+			<div class="wave wave_8 "></div>
+			<div class="wave wave_9 "></div>
+			<div class="wave wave_10"></div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>

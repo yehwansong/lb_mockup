@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		html,body{
+			width: 100vw;
+			height: 100%;
+		}
+		.wave_wrapper{
+    width: 150vw;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: perspective(31vh) translateZ(-50vh);
+    left: -40vw;
+		}
+		body{
+			transform-style: preserve-3d;
+		}
+		.wave_wrapper_1{
+			top: 10%;
+			left: 10%
+		}
+		.wave_wrapper_2{
+			top: 35%;
+		}
+		.wave_wrapper_3{
+			top: 60%;
+			left: 10%
+		}
+		.wave,.content{
+		    position: absolute;
+		    border: 1px solid black;
+		    border-left: 0px;
+		    /*background-color: #ffffff00;*/
+		    width: 50%;
+		    height: 50%;
+		    top: 25%;
+			transform-origin:left
+		}
+		/*.wave_1{left: 0%}
+		.wave_2{left: 20%}
+		.wave_3{left: 40%}
+		.wave_4{left: 60%}
+		.wave_5{left: 80%}*/
+		.wave{
+			transform-origin:left
+		}
+		.wave_under{
+			transform-origin: left bottom;
+			display: none;
+		}
+		.content{
+			background-color: red;
+			animation: infinite example 10s;
+			display: none;
+		}
+		/*@keyframes example {
+			from {
+				transform: rotateY(90deg);
+				left:100vw;
+			}
+			to   {
+				transform: rotateY(0deg);
+				left:0vw;
+			}
+		}*/
+	</style>
+</head>
+<body>
+	<script src="jquery.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var w = window.innerWidth
+		var h = window.innerHeight
+		$('.wave').each(function(index){
+			$(this).css({'left':(100/$('.wave').length*index)+'%'})
+			var value = (100/$('.wave').length*(index+1))/100
+			console.log(get_angle(value)*90)
+				$(this).css({'transform':'rotateY('+ (get_angle(value)*90) + 'deg)'})
+				// 115~25
+				// 100vw~0vw
+		})
+		$('.wave_under').each(function(){
+			var value = $(this).offset().left/w
+			$(this).css({'transform':'rotateY('+ (-1*get_angle(value)*90-25) + 'deg)'})
+		})
+		function get_angle(x){
+			return x*x
+		}
+	})
+	</script>
+	<div class="wave_wrapper wave_wrapper_0">
+		<div class="wave wave_1 wave"></div>
+		<div class="wave wave_2 wave"></div>
+		<div class="wave wave_3 wave"></div>
+		<div class="wave wave_4 wave"></div>
+		<div class="wave wave_5 wave"></div>
+		<div class="wave wave_6 wave"></div>
+		<div class="wave wave_7 wave"></div>
+		<div class="wave wave_8 wave"></div>
+		<div class="wave wave_9 wave"></div>
+		<div class="wave wave_10 wave"></div>
+		<div class="wave wave_11 wave"></div>
+		<div class="wave wave_12 wave"></div>
+		<div class="wave wave_13 wave"></div>
+		<div class="wave wave_14 wave"></div>
+		<div class="wave wave_15 wave"></div>
+		<div class="content"></div>
+	</div>
+</body>
+</html>

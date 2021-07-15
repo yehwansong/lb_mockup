@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		html,body{
+			width: 100vw;
+			height: 100%;
+		}
+		.wave_wrapper{
+    width: 150vw;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: perspective(30vh) translateZ(-70vh);
+    left: -58%;
+		}
+		.wave{
+    width: 50%;
+    height: 70vh;
+    left: 50%;
+    position: absolute;
+    /* left: 0; */
+    top: 0;
+    transform-origin: left;
+    transform-style: preserve-3d;
+    transform-style: preserve-3d;
+		}
+.wave_inner {
+    width: 113%;
+    position: absolute;
+    height: 100%;
+    border: 1px solid black;
+    right: 0;
+    transform: rotateY( 
+-27deg
+ );
+    transform-origin: right;
+}
+	</style>
+</head>
+<body>
+	<script src="jquery.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var w = window.innerWidth
+		var h = window.innerHeight
+		$('.wave').each(function(index){
+			var value = (180/$('.wave').length*(index))
+			$(this).css({'transform':'rotateY('+ value + 'deg)'})
+		})
+	})
+	</script>
+	<div class="wave_wrapper">
+		<div class="wave wave_1 "><div class="wave_inner wave_inner_1 "></div></div>
+		<div class="wave wave_2 "><div class="wave_inner wave_inner_2 "></div></div>
+		<div class="wave wave_3 "><div class="wave_inner wave_inner_3 "></div></div>
+		<div class="wave wave_4 "><div class="wave_inner wave_inner_4 "></div></div>
+		<div class="wave wave_5 "><div class="wave_inner wave_inner_5 "></div></div>
+		<div class="wave wave_6 "><div class="wave_inner wave_inner_6 "></div></div>
+		<div class="wave wave_7 "><div class="wave_inner wave_inner_7 "></div></div>
+		<div class="wave wave_8 "><div class="wave_inner wave_inner_8 "></div></div>
+		<div class="wave wave_9 "><div class="wave_inner wave_inner_9 "></div></div>
+		<div class="wave wave_10"><div class="wave_inner wave_inner_10"></div></div>
+		<div class="wave wave_11"><div class="wave_inner wave_inner_11"></div></div>
+		<div class="wave wave_12"><div class="wave_inner wave_inner_12"></div></div>
+		<div class="wave wave_13"><div class="wave_inner wave_inner_13"></div></div>
+		<div class="wave wave_14"><div class="wave_inner wave_inner_14"></div></div>
+		<div class="wave wave_15"><div class="wave_inner wave_inner_15"></div></div>
+		<!-- <div class="wave wave_16"><div class="wave_inner wave_inner_16"></div></div>
+		<div class="wave wave_17"><div class="wave_inner wave_inner_17"></div></div>
+		<div class="wave wave_18"><div class="wave_inner wave_inner_18"></div></div>
+		<div class="wave wave_19"><div class="wave_inner wave_inner_19"></div></div>
+		<div class="wave wave_20"><div class="wave_inner wave_inner_20"></div></div>
+		<div class="wave wave_21"><div class="wave_inner wave_inner_21"></div></div>
+		<div class="wave wave_22"><div class="wave_inner wave_inner_22"></div></div>
+		<div class="wave wave_23"><div class="wave_inner wave_inner_23"></div></div>
+		<div class="wave wave_24"><div class="wave_inner wave_inner_24"></div></div>
+		<div class="wave wave_25"><div class="wave_inner wave_inner_25"></div></div>
+		<div class="wave wave_26"><div class="wave_inner wave_inner_26"></div></div>
+		<div class="wave wave_27"><div class="wave_inner wave_inner_27"></div></div>
+		<div class="wave wave_28"><div class="wave_inner wave_inner_28"></div></div>
+		<div class="wave wave_29"><div class="wave_inner wave_inner_29"></div></div>
+		<div class="wave wave_30"><div class="wave_inner wave_inner_30"></div></div> -->
+
+
+
+		<div class="content"></div>
+	</div>
+</body>
+</html>

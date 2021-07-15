@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		html,body{
+			width: 100vw;
+			height: 100%;
+		}
+		.wave_wrapper{
+    width: 100vw;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: perspective(30vh);
+    /*left: -25vw;*/
+}
+		body{
+			transform-style: preserve-3d;
+		}
+		.wave_wrapper_1{
+			top: 10%;
+			left: 10%
+		}
+		.wave_wrapper_2{
+			top: 35%;
+		}
+		.wave_wrapper_3{
+			top: 60%;
+			left: 10%
+		}
+		.wave,.content{
+    position: absolute;
+    border: 1px solid black;
+    /* border-left: 0px; */
+    /* background-color: #ffffff00; */
+    width: 100%;
+    height: 100%;
+    /*top: 25%;*/
+		}
+		/*.wave_1{left: 0%}
+		.wave_2{left: 20%}
+		.wave_3{left: 40%}
+		.wave_4{left: 60%}
+		.wave_5{left: 80%}*/
+		.wave{
+			transform-origin:left
+		}
+		.wave_under{
+			transform-origin: left bottom;
+			display: none;
+		}
+		.content{
+			background-color: red;
+			animation: infinite example 10s;
+			display: none;
+		}
+		/*@keyframes example {
+			from {
+				transform: rotateY(90deg);
+				left:100vw;
+			}
+			to   {
+				transform: rotateY(0deg);
+				left:0vw;
+			}
+		}*/
+		.cell{
+    position: absolute;
+    width: 20vw;
+    height: 100vh;
+    /*background-color: red;*/
+    top: 0;
+    z-index: 10000;
+    transform: scale(0.4);
+}
+.cell_1{
+    transform-origin: 475%;
+    left: 0;
+}
+.cell_2{
+    transform-origin: 317%;
+    left: 20%;
+}
+.cell_3{
+    transform-origin: 173%;
+    left: 40%;
+}
+.cell_4{
+    transform-origin: 38%;
+    left: 60%;
+}
+.cell_5{
+    transform-origin: -50%;
+    left: 80%;
+}
+	</style>
+</head>
+<body>
+	<script src="jquery.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var angle_array = [6,14,23,34,46,56,67,76,84,90]
+		var w = window.innerWidth
+		var h = window.innerHeight
+		$('.wave').each(function(index){
+			$(this).css({'left':(100/$('.wave').length*(index+1))+'%'})
+			var value = (100/$('.wave').length*(index))/100
+				$(this).css({'transform':'rotateY('+ (angle_array[index]) + 'deg)'})
+				// 115~25
+				// 100vw~0vw
+		})
+		function get_angle(x){
+			return x*x
+		}
+	})
+	</script>
+	<div class="cell_wrapper">
+		<div class="cell cell_1 "></div>
+		<div class="cell cell_2 "></div>
+		<div class="cell cell_3 "></div>
+		<div class="cell cell_4 "></div>
+		<div class="cell cell_5 "></div>
+		<div class="cell cell_6 "></div>
+		<div class="cell cell_7 "></div>
+		<div class="cell cell_8 "></div>
+		<div class="cell cell_9 "></div>
+		<div class="cell cell_10"></div>
+		<div class="cell cell_11"></div>
+		<div class="cell cell_12"></div>
+		<div class="cell cell_13"></div>
+		<div class="cell cell_14"></div>
+		<div class="cell cell_15"></div>
+	</div>
+	<div class="wave_wrapper wave_wrapper_0">
+		<div class="wave wave_1 "></div>
+		<div class="wave wave_2 "></div>
+		<div class="wave wave_3 "></div>
+		<div class="wave wave_4 "></div>
+		<div class="wave wave_5 "></div>
+		<div class="wave wave_6 "></div>
+		<div class="wave wave_7 "></div>
+		<div class="wave wave_8 "></div>
+		<div class="wave wave_9 "></div>
+		<div class="wave wave_10"></div>
+		<div class="content"></div>
+	</div>
+</body>
+</html>
